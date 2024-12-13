@@ -23,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     layout->addWidget(receptionButton);
     layout->addWidget(queueButton);
 
+    setLayout(layout);
+
     // Подключаем кнопки к слотам
     connect(registrationButton, &QPushButton::clicked, this, &MainWindow::showRegistrationWindow);
     connect(receptionButton, &QPushButton::clicked, this, &MainWindow::showReceptionWindow);
@@ -30,6 +32,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(registrationWindow, &RegistrationWindow::queueUpdated, queueWindow, &QueueWindow::updateQueueList);
     connect(receptionWindow, &ReceptionWindow::queueUpdated, queueWindow, &QueueWindow::updateQueueList);
+}
+
+MainWindow::~MainWindow(){
+    delete registrationWindow;
+    delete receptionWindow;
+    delete queueWindow;
 }
 
 void MainWindow::showRegistrationWindow()
